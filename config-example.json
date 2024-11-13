@@ -1,0 +1,6 @@
+{
+    "https://discordapp.com/api/webhooks/not_a_real_webhook": [
+        {"prof": "Ning, Patricia", "course": "STAT 212", "crn": "41051"},
+        {"prof": "Taele, Paul Piula", "course": "CSCE 331", "crn": "50593"}
+    ]
+}
