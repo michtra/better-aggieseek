@@ -23,24 +23,19 @@ def main():
                 if seats != 0:
                     prof = section["prof"]
                     course = section["course"]
+                    notify(webhook, "SEATS AVAILABLE", f'{course} with {prof} is available.\nAggie Schedule Builder: https://tamu.collegescheduler.com/terms/Spring%202025%20-%20College%20Station/options')
+            else:
+                notify(webhook, "Response Error", "Status Code: " + response.status_code)
 
-                    data["embeds"] = [
-                        {
-                            "description" : f'{course} with {prof} is available.\nAggie Schedule Builder: https://tamu.collegescheduler.com/terms/Spring%202025%20-%20College%20Station/options',
-                            "title" : "SEATS AVAILABLE"
-                        }
-                    ]
-
-                    result = requests.post(webhook, json = data)
-
-                    try:
-                        result.raise_for_status()
-                    except requests.exceptions.HTTPError as err:
-                        print(err)
-                
-if __name__ == "__main__":
-    # weird error where dictionary changed size during iteration
+def notify(webhook, title, description):
+    discord_json = {
+            "embeds" : [{"description" : description, "title" : title}]
+    }
+    result = requests.post(webhook, json = discord_json)
     try:
-        main()
-    except:
-        pass
+        result.raise_for_status()
+    except requests.exceptions.HTTPError as err:
+        print(err)
+
+if __name__ == "__main__":
+    main()
